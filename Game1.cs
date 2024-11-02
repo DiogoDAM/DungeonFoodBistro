@@ -2,12 +2,14 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using SuMamaLib.Inputs;
+using SuMamaLib.Utils;
+
 namespace DungeonFoodBistro;
 
 public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
-    private SpriteBatch _spriteBatch;
 
     public Game1()
     {
@@ -25,17 +27,19 @@ public class Game1 : Game
 
     protected override void LoadContent()
     {
-        _spriteBatch = new SpriteBatch(GraphicsDevice);
+		Globals.Initialize(GraphicsDevice, Content);
 
-        // TODO: use this.Content to load your game content here
     }
 
     protected override void Update(GameTime gameTime)
     {
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
-
         // TODO: Add your update logic here
+
+		Globals.Update(gameTime);
+		Input.Update();
+
 
         base.Update(gameTime);
     }
