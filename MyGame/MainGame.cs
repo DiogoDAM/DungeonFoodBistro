@@ -30,6 +30,8 @@ namespace MyGame
 			{
 				AddObject(_player);
 			}
+
+			System.Console.WriteLine(_objectsList[0].Count);
 		}
 
 	}

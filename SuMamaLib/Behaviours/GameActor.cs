@@ -6,7 +6,7 @@ using SuMamaLib.Utils.Sprites;
 
 namespace SuMamaLib.Behaviours
 {
-    public abstract class GameEntity : GameObject
+    public abstract class GameActor : GameObject
     {
 		public Transform Transform;
 		public Vector2 Origin;
@@ -15,7 +15,7 @@ namespace SuMamaLib.Behaviours
 		public float Depth;
 		public Sprite Sprite { get; protected set; }
 
-		public GameEntity()
+		public GameActor()
 		{
 			Transform = new();
 			Origin = Vector2.Zero;

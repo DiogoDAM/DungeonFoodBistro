@@ -8,7 +8,7 @@ using SuMamaLib.Utils.Sprites;
 
 namespace MyGame
 {
-    public class Player : GameEntity
+    public class Player : GameActor
     {
 		private Vector2 _speed;
 
@@ -39,6 +39,7 @@ namespace MyGame
 			}
 
 			Transform.Translate(dir * _speed * new Vector2(Globals.DeltaTime, Globals.DeltaTime));
+
 		}
     }
 }

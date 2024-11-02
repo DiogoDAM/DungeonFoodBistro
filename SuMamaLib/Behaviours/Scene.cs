@@ -48,6 +48,15 @@ namespace SuMamaLib.Behaviours
 			}
 		}
 
+		public virtual void Enter()
+		{
+			Start();
+		}
+
+		public virtual void Exit()
+		{
+		}
+
 		public void AddObject(GameObject obj)
 		{
 			if(obj == null){ throw new NullReferenceException(); }
@@ -62,6 +71,7 @@ namespace SuMamaLib.Behaviours
 		public void RemoveObject(GameObject obj)
 		{
 			if(obj == null){ throw new NullReferenceException(); }
+			if(!_objectsList[obj.Layer].Contains(obj)){ return; }
 			_objectsList[obj.Layer].Remove(obj);
 		}
 
@@ -69,7 +79,7 @@ namespace SuMamaLib.Behaviours
 		{
 			if(obj == null){ throw new NullReferenceException(); }
 			if(!_objectsList[obj.Layer].Contains(obj)){ return; }
-			_objectsList[obj.Layer].Find(o => o == obj).Dispose();
+			_objectsList[obj.Layer].Find(o => o.Equals(obj)).Dispose();
 			_objectsList[obj.Layer].Remove(obj);
 		}
 

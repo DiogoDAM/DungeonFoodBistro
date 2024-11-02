@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MyGame;
+using SuMamaLib.Behaviours;
 using SuMamaLib.Inputs;
 using SuMamaLib.Utils;
 
@@ -34,8 +35,8 @@ public class Game1 : Game
 		Globals.Content.Load<Texture2D>("Sprites/Ana");
 
 		_mainGame = new();
-		_mainGame.Start();
 
+		SceneManager.AddScene(_mainGame);
     }
 
     protected override void Update(GameTime gameTime)
@@ -47,22 +48,19 @@ public class Game1 : Game
 		Globals.Update(gameTime);
 		Input.Update();
 
-
-		_mainGame.Update();
-
-        base.Update(gameTime);
-    }
-
-    protected override void Draw(GameTime gameTime)
-    {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
-
+		SceneManager.Update(); 
+		base.Update(gameTime); 
+	} 
+	protected override void Draw(GameTime gameTime) 
+	{ 
+		GraphicsDevice.Clear(Color.CornflowerBlue);
 		Globals.SpriteBatch.Begin();
 
-		_mainGame.Draw();
+		SceneManager.Draw();
 
 		Globals.SpriteBatch.End();
 
-        base.Draw(gameTime);
+		base.Draw(gameTime);
+
     }
 }
