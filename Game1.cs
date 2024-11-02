@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
+using MyGame;
 using SuMamaLib.Inputs;
 using SuMamaLib.Utils;
 
@@ -10,6 +10,7 @@ namespace DungeonFoodBistro;
 public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
+	private MainGame _mainGame;
 
     public Game1()
     {
@@ -27,7 +28,13 @@ public class Game1 : Game
 
     protected override void LoadContent()
     {
+		base.LoadContent();
 		Globals.Initialize(GraphicsDevice, Content);
+
+		Globals.Content.Load<Texture2D>("Sprites/Ana");
+
+		_mainGame = new();
+		_mainGame.Start();
 
     }
 
@@ -41,6 +48,8 @@ public class Game1 : Game
 		Input.Update();
 
 
+		_mainGame.Update();
+
         base.Update(gameTime);
     }
 
@@ -48,7 +57,11 @@ public class Game1 : Game
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
-        // TODO: Add your drawing code here
+		Globals.SpriteBatch.Begin();
+
+		_mainGame.Draw();
+
+		Globals.SpriteBatch.End();
 
         base.Draw(gameTime);
     }

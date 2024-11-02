@@ -4,12 +4,13 @@ using System;
 
 namespace SuMamaLib.Utils.Sprites
 {
-    public class Sprite
+    public class Sprite : IDisposable
     {
         public Texture2D Texture { get; private set; }
         public Point StartPos;
         public Point Size;
 		public Rectangle Bounds { get { return new Rectangle(StartPos, Size); } }
+		private bool _disposed = false;
 
         public Sprite(Texture2D texture, Rectangle rect)
         {
@@ -37,6 +38,26 @@ namespace SuMamaLib.Utils.Sprites
             if(texture == null) { throw new NullReferenceException("Texture is null");}
             Texture = texture;
         }
+
+        public void Dispose()
+        {
+			Dispose(true);
+			GC.SuppressFinalize(this);
+        }
+
+		private void Dispose(bool disposable)
+		{
+			if(disposable)
+			{
+				if(!_disposed)
+				{
+					Texture.Dispose();
+					Texture = null;
+
+					_disposed = true;
+				}
+			}
+		}
     }
 
 }
