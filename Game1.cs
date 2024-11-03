@@ -31,6 +31,7 @@ public class Game1 : Game
     {
 		base.LoadContent();
 		Globals.Initialize(GraphicsDevice, Content);
+		Drawer.Initialize(GraphicsDevice);
 
 		Globals.Content.Load<Texture2D>("Sprites/Ana");
 

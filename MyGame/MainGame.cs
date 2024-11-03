@@ -6,7 +6,6 @@ namespace MyGame
 {
 	public class MainGame : Scene
 	{
-		private Player _player;
 
 		public MainGame() : base()
 		{
@@ -14,24 +13,17 @@ namespace MyGame
 			_objectsList.Add(new());
 			_objectsList.Add(new());
 
-			_player = new();
-			AddObject(_player);
 		}
 
 		public override void Update()
 		{
 			base.Update();
 
-			if(Input.Keyboard.KeyWasPressed(Keys.Space))
-			{
-				DestroyObject(_player);
-			}
-			if(Input.Keyboard.KeyWasPressed(Keys.Enter))
-			{
-				AddObject(_player);
-			}
+		}
 
-			System.Console.WriteLine(_objectsList[0].Count);
+		public override void Draw()
+		{
+			base.Draw();
 		}
 
 	}
