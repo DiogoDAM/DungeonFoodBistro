@@ -62,5 +62,38 @@ namespace SuMamaLib.Utils
 		{
 			Globals.SpriteBatch.Draw(_pixelTexture, rect, null, color, rot, Vector2.Zero, SpriteEffects.None, depth);
 		}
+
+		public static void DrawLinePolygon(Vector2[] vertices, Color color, int thicknes=1, float depth=1f)
+		{
+			for(int i=0; i<vertices.Length; i++)
+			{
+				Vector2 start = vertices[i];
+				Vector2 end = vertices[(i + 1) % vertices.Length];
+
+				DrawLine(start, end, color, thicknes, depth);
+			}
+		}
+
+		public static void DrawLineCircle(Vector2 center, int radius, int lines, Color color, int thicknes=1, float depth=1)
+		{
+			Vector2[] vertices = new Vector2[lines];
+			float angleStep = MathHelper.TwoPi / lines;
+
+			for(int i=0; i<lines; i++)
+			{
+				float angle = i * angleStep;
+				float x = center.X + radius * (float)Math.Cos(angle);
+				float y = center.Y + radius * (float)Math.Sin(angle);
+				vertices[i] = new Vector2(x, y);
+			}
+
+			for(int i=0; i<vertices.Length; i++)
+			{
+				Vector2 start = vertices[i];
+				Vector2 end = vertices[(i + 1) % vertices.Length];
+
+				DrawLine(start, end, color, thicknes, depth);
+			}
+		}
 	}
 }
