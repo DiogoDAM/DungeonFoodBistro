@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DungeonFoodBistro")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ab6d79a8db49fe992ed9dcda327e083cb9b2bcc0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+459c46c0c7281061abf87b9e6987776f6459ff10")]
 [assembly: System.Reflection.AssemblyProductAttribute("DungeonFoodBistro")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DungeonFoodBistro")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

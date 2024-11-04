@@ -1,7 +1,11 @@
+using Microsoft.Xna.Framework;
+using SuMamaLib.Utils;
+
 namespace SuMamaLib.Collisions
 {
 	public interface ICollisor
 	{
-		public bool CheckCollision();
+		public Transform Transform { get; set; }
+		public Rectangle BoundingRectangle { get;}
 	}
 }
