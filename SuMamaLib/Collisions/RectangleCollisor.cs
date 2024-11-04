@@ -57,6 +57,5 @@ namespace SuMamaLib.Collisions
 			return ax < bx + b.Width && ax + a.Width > bx &&
 				ay < by + b.Height && ay + a.Height > by;
 		}
-
     }
 }
