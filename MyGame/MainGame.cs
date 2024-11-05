@@ -61,7 +61,7 @@ namespace MyGame
 
 		public void OnCollisionStay(CollisionArgs other)
 		{
-			System.Console.WriteLine("Stay");
+			other.Transform.Translate(new Vector2(100, 0));
 		}
 
 		public void OnCollisionExit(CollisionArgs other)
