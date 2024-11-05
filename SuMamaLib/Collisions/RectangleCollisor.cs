@@ -1,6 +1,7 @@
 using SuMamaLib.Utils;
 
 using Microsoft.Xna.Framework;
+using SuMamaLib.Collisions.Interfaces;
 
 namespace SuMamaLib.Collisions
 {
@@ -8,6 +9,7 @@ namespace SuMamaLib.Collisions
 	{
 		public Transform Transform { get; set; }
 		public int Width, Height;
+		public IBody Body { get;  set;}
 
 		public Rectangle BoundingRectangle { get => new Rectangle((int)Transform.Position.X, (int)Transform.Position.Y, Width, Height); }
 

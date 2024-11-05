@@ -1,10 +1,13 @@
+using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using SuMamaLib.Behaviours;
+using SuMamaLib.Collisions.Interfaces;
 using SuMamaLib.Utils;
 
 namespace SuMamaLib.Collisions
 {
-	public class RigidBody
+	public class RigidBody : IBody
 	{
 		public ICollisor Collisor { get; }
 
@@ -12,10 +15,11 @@ namespace SuMamaLib.Collisions
 		public Vector2 Velocity { get; set; }
 		public bool IsaacNewtonWasBorn { get; set; } = true;
 		public bool Solid { get; set; } = true;
-		public CollisionArgs CollisionArgs;
+        public CollisionArgs CollisionArgs { get; }
+		public Transform Transform { get; }
 
-		private Transform _transform;
-		private Vector2 _force;
+        private Vector2 _force;
+		private Dictionary<ICollisor, bool> _contacts;
 
 		public delegate void HandleCollision(CollisionArgs other);
 
@@ -26,8 +30,11 @@ namespace SuMamaLib.Collisions
 		public RigidBody(ICollisor collisor)
 		{
 			Collisor = collisor;
-			_transform = collisor.Transform;
-			CollisionArgs = new(this, _transform);
+			Transform = collisor.Transform;
+			Collisor.Body = this;
+			CollisionArgs = new(this, collisor, Transform);
+
+			_contacts = new();
 		}
 
 		public void SetData(GameObject go)
@@ -35,9 +42,34 @@ namespace SuMamaLib.Collisions
 			CollisionArgs.SetData(go);
 		}
 
-		public void CheckCollision(CollisionArgs collisor)
+		public void UpdateCollision(ICollisor other, bool isColliding)
 		{
-			CollisionEnter(collisor);
+			if(other == null) throw new NullReferenceException();
+
+			if(!_contacts.ContainsKey(other))
+			{
+				_contacts.Add(other, isColliding);
+			}
+
+			//Check to Enter
+			if(_contacts[other] == false && isColliding)
+			{
+				CollisionEnter.Invoke(CollisionArgs);
+			}
+
+			//Check to Stay
+			if(_contacts[other] == true && isColliding)
+			{
+				CollisionStay.Invoke(CollisionArgs);
+			}
+
+			//Check to Exit
+			if(_contacts[other] == true && !isColliding)
+			{
+				CollisionExit.Invoke(CollisionArgs);
+			}
+
+			_contacts[other] = isColliding;
 		}
 
 		public void ApplyForce(Vector2 force) => _force += force;
@@ -60,7 +92,7 @@ namespace SuMamaLib.Collisions
 
 			Velocity += acceleration;
 
-			_transform.Translate(Velocity * Globals.DeltaTime);
+			Transform.Translate(Velocity * Globals.DeltaTime);
 
 			_force = Vector2.Zero;
 			Velocity = Vector2.Zero;
