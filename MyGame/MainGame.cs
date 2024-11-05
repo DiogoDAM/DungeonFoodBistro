@@ -23,21 +23,26 @@ namespace MyGame
 
 			_body1 = new(_rect1);
 			_body2 = new(_rect2);
+
+			_body1.CollisionEnter += OnCollisionEnter;
 		}
 
 		public override void Update()
 		{
 			base.Update();
 
-			if(Input.Keyboard.KeyIsPressed(Keys.D)){ _body1.Velocity = new Vector2(200, 0); }
-			else if(Input.Keyboard.KeyIsPressed(Keys.A)){ _body1.Velocity = new Vector2(-200, 0); }
-			if(Input.Keyboard.KeyIsPressed(Keys.S)){ _body1.Velocity = new Vector2(0, 200); }
-			else if(Input.Keyboard.KeyIsPressed(Keys.W)){ _body1.Velocity = new Vector2(0, -200); }
-
-			_body2.ApplyGravity(new Vector2(0, 200));
+			if(Input.Keyboard.KeyIsPressed(Keys.D)){ _body1.Velocity += new Vector2(200, 0); }
+			else if(Input.Keyboard.KeyIsPressed(Keys.A)){ _body1.Velocity += new Vector2(-200, 0); }
+			if(Input.Keyboard.KeyIsPressed(Keys.S)){ _body1.Velocity += new Vector2(0, 200); }
+			else if(Input.Keyboard.KeyIsPressed(Keys.W)){ _body1.Velocity += new Vector2(0, -200); }
 
 			_body1.Update();
 			_body2.Update();
+
+			if(_body1.Collisor.Intersects(_body2.Collisor))
+			{
+				_body1.CheckCollision(_body2.CollisionArgs);
+			}
 		}
 
 		public override void Draw()
@@ -50,5 +55,9 @@ namespace MyGame
 			Drawer.DrawFillRectangle(_rect1.GetIntersection(_rect2), Color.Purple);
 		}
 
+		public void OnCollisionEnter(CollisionArgs other)
+		{
+			other.Transform.Translate(new Vector2(20, 20));
+		}
 	}
 }

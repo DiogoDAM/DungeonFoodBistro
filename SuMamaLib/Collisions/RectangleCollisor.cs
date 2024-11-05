@@ -42,6 +42,18 @@ namespace SuMamaLib.Collisions
 			return Rectangle.Intersect(a.BoundingRectangle, b.BoundingRectangle);
 		}
 
+		public bool Intersects(ICollisor other)
+		{
+			if(other is RectangleCollisor)
+			{
+				return Intersects(other as RectangleCollisor);
+			}
+			else
+			{
+				return false;
+			}
+		}
+
 		public bool Intersects(RectangleCollisor other)
 		{
 			return Intersects(this, other);

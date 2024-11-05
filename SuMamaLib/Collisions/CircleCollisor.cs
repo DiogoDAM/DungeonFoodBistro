@@ -27,6 +27,18 @@ namespace SuMamaLib.Collisions
 			Radius = radius;
 		}
 
+		public bool Intersects(ICollisor other)
+		{
+			if(other is CircleCollisor)
+			{
+				return Intersects(other as CircleCollisor);
+			}
+			else
+			{
+				return false;
+			}
+		}
+
 		public bool Intersects(CircleCollisor other)
 		{
 			return Intersects(this, other);

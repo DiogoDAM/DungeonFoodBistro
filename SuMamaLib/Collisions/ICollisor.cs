@@ -7,5 +7,7 @@ namespace SuMamaLib.Collisions
 	{
 		public Transform Transform { get; set; }
 		public Rectangle BoundingRectangle { get;}
+
+		public bool Intersects(ICollisor other);
 	}
 }

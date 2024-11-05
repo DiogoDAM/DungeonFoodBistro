@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using SuMamaLib.Behaviours;
 using SuMamaLib.Utils;
 
 namespace SuMamaLib.Collisions
@@ -11,20 +12,32 @@ namespace SuMamaLib.Collisions
 		public Vector2 Velocity { get; set; }
 		public bool IsaacNewtonWasBorn { get; set; } = true;
 		public bool Solid { get; set; } = true;
+		public CollisionArgs CollisionArgs;
 
 		private Transform _transform;
 		private Vector2 _force;
 
-		delegate void HandleCollision();
+		public delegate void HandleCollision(CollisionArgs other);
 
-		event HandleCollision OnCollisionEnter;
-		event HandleCollision OnCollisionStay;
-		event HandleCollision OnCollisionExit;
+		public event HandleCollision CollisionEnter;
+		public event HandleCollision CollisionStay;
+		public event HandleCollision CollisionExit;
 
 		public RigidBody(ICollisor collisor)
 		{
 			Collisor = collisor;
 			_transform = collisor.Transform;
+			CollisionArgs = new(this, _transform);
+		}
+
+		public void SetData(GameObject go)
+		{
+			CollisionArgs.SetData(go);
+		}
+
+		public void CheckCollision(CollisionArgs collisor)
+		{
+			CollisionEnter(collisor);
 		}
 
 		public void ApplyForce(Vector2 force) => _force += force;
@@ -34,6 +47,7 @@ namespace SuMamaLib.Collisions
 		{
 			if(IsaacNewtonWasBorn) { _force += gravity; }
 		}
+
 
 		public void SetGravity(Vector2 gravity)
 		{
