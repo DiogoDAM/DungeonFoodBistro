@@ -19,10 +19,9 @@ namespace MyGame
 			_objectsList.Add(new());
 
 			_rect1 = new(new Vector2(300, 100), 30, 30);
-			_rect2 = new(new Vector2(400, 100), 30, 30);
+			_rect2 = new(new Vector2(300, 200), 30, 30);
 
 			_body1 = new(_rect1);
-			_body1.Friction = 1f;
 			_body2 = new(_rect2);
 		}
 
@@ -30,15 +29,15 @@ namespace MyGame
 		{
 			base.Update();
 
-			if(Input.Keyboard.KeyIsPressed(Keys.D)){ _body1.ApplyForce(new Vector2(200, 0)); }
-			else if(Input.Keyboard.KeyIsPressed(Keys.A)){ _body1.ApplyForce(new Vector2(-200, 0)); }
-			if(Input.Keyboard.KeyIsPressed(Keys.S)){ _body1.ApplyForce(new Vector2(0, 200)); }
-			else if(Input.Keyboard.KeyIsPressed(Keys.W)){ _body1.ApplyForce(new Vector2(0, -200)); }
+			if(Input.Keyboard.KeyIsPressed(Keys.D)){ _body1.Velocity = new Vector2(200, 0); }
+			else if(Input.Keyboard.KeyIsPressed(Keys.A)){ _body1.Velocity = new Vector2(-200, 0); }
+			if(Input.Keyboard.KeyIsPressed(Keys.S)){ _body1.Velocity = new Vector2(0, 200); }
+			else if(Input.Keyboard.KeyIsPressed(Keys.W)){ _body1.Velocity = new Vector2(0, -200); }
+
+			_body2.ApplyGravity(new Vector2(0, 200));
 
 			_body1.Update();
 			_body2.Update();
-
-			System.Console.WriteLine($"Vel {_body1.Velocity}");
 		}
 
 		public override void Draw()
@@ -47,6 +46,8 @@ namespace MyGame
 
 			Drawer.DrawFillRectangle(_rect1.BoundingRectangle, Color.Red);
 			Drawer.DrawFillRectangle(_rect2.BoundingRectangle, Color.Blue);
+
+			Drawer.DrawFillRectangle(_rect1.GetIntersection(_rect2), Color.Purple);
 		}
 
 	}

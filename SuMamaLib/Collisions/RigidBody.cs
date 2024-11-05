@@ -7,13 +7,19 @@ namespace SuMamaLib.Collisions
 	{
 		public ICollisor Collisor { get; }
 
-		public Vector2 Acceleration;
-		public Vector2 Velocity;
-
 		public float Mass = 1f;
-		public float Friction { get; set; }=1f;
-		
+		public Vector2 Velocity { get; set; }
+		public bool IsaacNewtonWasBorn { get; set; } = true;
+		public bool Solid { get; set; } = true;
+
 		private Transform _transform;
+		private Vector2 _force;
+
+		delegate void HandleCollision();
+
+		event HandleCollision OnCollisionEnter;
+		event HandleCollision OnCollisionStay;
+		event HandleCollision OnCollisionExit;
 
 		public RigidBody(ICollisor collisor)
 		{
@@ -21,25 +27,29 @@ namespace SuMamaLib.Collisions
 			_transform = collisor.Transform;
 		}
 
-		public void ApplyForce(Vector2 force)
+		public void ApplyForce(Vector2 force) => _force += force;
+		public void SetForce(Vector2 force) => _force = force;
+
+		public void ApplyGravity(Vector2 gravity) 
 		{
-			Acceleration += force / Mass;
+			if(IsaacNewtonWasBorn) { _force += gravity; }
 		}
 
-		public void ApplyGravity(Vector2 gravity)
+		public void SetGravity(Vector2 gravity)
 		{
-			Acceleration += gravity;
+			if(IsaacNewtonWasBorn) { _force = gravity; }
 		}
 
 		public void Update()
 		{
-			Velocity += Acceleration * Globals.DeltaTime;
-			Acceleration = Vector2.Zero;
+			Vector2 acceleration = _force / Mass;
 
-			Velocity *= 1 - Friction * Globals.DeltaTime;
+			Velocity += acceleration;
 
 			_transform.Translate(Velocity * Globals.DeltaTime);
 
+			_force = Vector2.Zero;
+			Velocity = Vector2.Zero;
 		}
 	}
 }
