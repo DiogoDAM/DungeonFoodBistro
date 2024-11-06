@@ -32,17 +32,16 @@ namespace SuMamaLib.Collisions
 		{
 			if(other is CircleCollisor)
 			{
-				return Intersects(other as CircleCollisor);
+				return Intersects(this, other as CircleCollisor);
+			}
+			else if(other is BoxCollisor)
+			{
+				return Intersects(this, other as BoxCollisor);
 			}
 			else
 			{
 				return false;
 			}
-		}
-
-		public bool Intersects(CircleCollisor other)
-		{
-			return Intersects(this, other);
 		}
 
 		public static bool Intersects(CircleCollisor a, CircleCollisor b)
@@ -51,6 +50,18 @@ namespace SuMamaLib.Collisions
 			float distanceCenters = Vector2.Distance(a.Center, b.Center);
 
 			return radiusSum > (int)distanceCenters;
+		}
+
+		public static bool Intersects(CircleCollisor circle, BoxCollisor rect)
+		{
+			float closeX = Math.Max(rect.TopLeft.X, Math.Min(circle.Radius, rect.TopRight.X));
+			float closeY = Math.Max(rect.TopLeft.Y, Math.Min(circle.Radius, rect.BottomRight.Y));
+
+			float distX = circle.Radius - closeX;
+			float distY = circle.Radius - closeY;
+			float distanceSquared = (distX*distX) + (distY*distY);
+
+			return distanceSquared <= (circle.Radius * circle.Radius);
 		}
     }
 }

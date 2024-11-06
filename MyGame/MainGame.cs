@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using SuMamaLib.Behaviours;
 using SuMamaLib.Collisions;
+using SuMamaLib.Collisions.Interfaces;
 using SuMamaLib.Inputs;
 using SuMamaLib.Utils;
 
@@ -9,7 +10,8 @@ namespace MyGame
 {
 	public class MainGame : Scene
 	{
-		private RectangleCollisor _rect1, _rect2;
+		private BoxCollisor _rect1, _rect2;
+		private CircleCollisor _circle;
 		private RigidBody _body1, _body2;
 
 		public MainGame() : base()
@@ -18,8 +20,9 @@ namespace MyGame
 			_objectsList.Add(new());
 			_objectsList.Add(new());
 
-			_rect1 = new(new Vector2(300, 100), 30, 30);
-			_rect2 = new(new Vector2(300, 200), 30, 30);
+			_rect1 = new BoxCollisor(new Vector2(300, 300), 50, 50);
+			_rect2 = new BoxCollisor(new Vector2(400, 300), 50, 50);
+			_circle = new CircleCollisor(new Vector2(400, 300), 50);
 
 			_body1 = new(_rect1);
 			_body2 = new(_rect2);
@@ -50,8 +53,8 @@ namespace MyGame
 
 			Drawer.DrawFillRectangle(_rect1.BoundingRectangle, Color.Red);
 			Drawer.DrawFillRectangle(_rect2.BoundingRectangle, Color.Blue);
-
 			Drawer.DrawFillRectangle(_rect1.GetIntersection(_rect2), Color.Purple);
+
 		}
 
 		public void OnCollisionEnter(CollisionArgs other)
@@ -61,7 +64,6 @@ namespace MyGame
 
 		public void OnCollisionStay(CollisionArgs other)
 		{
-			other.Transform.Translate(new Vector2(100, 0));
 		}
 
 		public void OnCollisionExit(CollisionArgs other)

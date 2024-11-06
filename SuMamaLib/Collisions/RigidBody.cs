@@ -54,19 +54,19 @@ namespace SuMamaLib.Collisions
 			//Check to Enter
 			if(_contacts[other] == false && isColliding)
 			{
-				CollisionEnter.Invoke(other.Body.CollisionArgs);
+				CollisionEnter?.Invoke(other.Body.CollisionArgs);
 			}
 
 			//Check to Stay
 			if(_contacts[other] == true && isColliding)
 			{
-				CollisionStay.Invoke(other.Body.CollisionArgs);
+				CollisionStay?.Invoke(other.Body.CollisionArgs);
 			}
 
 			//Check to Exit
 			if(_contacts[other] == true && !isColliding)
 			{
-				CollisionExit.Invoke(other.Body.CollisionArgs);
+				CollisionExit?.Invoke(other.Body.CollisionArgs);
 			}
 
 			_contacts[other] = isColliding;
