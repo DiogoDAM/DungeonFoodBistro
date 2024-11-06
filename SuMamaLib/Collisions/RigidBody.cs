@@ -7,7 +7,7 @@ using SuMamaLib.Utils;
 
 namespace SuMamaLib.Collisions
 {
-	public class RigidBody : IBody
+	public class RigidBody : IBody, IDisposable
 	{
 		public ICollisor Collisor { get; }
 
@@ -15,13 +15,14 @@ namespace SuMamaLib.Collisions
 		public Vector2 Velocity { get; set; }
 		public bool IsaacNewtonWasBorn { get; set; } = true;
 		public bool Solid { get; set; } = true;
-        public CollisionArgs CollisionArgs { get; }
+        public CollisionEventArgs CollisionEventArgs { get; }
 		public Transform Transform { get; }
 
         private Vector2 _force;
-		private Dictionary<ICollisor, bool> _contacts;
+		private HashSet<IBody> _currCollisions;
+		private bool _disposed;
 
-		public delegate void HandleCollision(CollisionArgs other);
+		public delegate void HandleCollision(CollisionEventArgs other);
 
 		public event HandleCollision CollisionEnter;
 		public event HandleCollision CollisionStay;
@@ -32,44 +33,46 @@ namespace SuMamaLib.Collisions
 			Collisor = collisor;
 			Transform = collisor.Transform;
 			Collisor.Body = this;
-			CollisionArgs = new(this, collisor, Transform);
+			CollisionEventArgs = new(this, collisor, Transform);
 
-			_contacts = new();
+			_currCollisions = new();
 		}
 
 		public void SetData(GameObject go)
 		{
-			CollisionArgs.SetData(go);
+			CollisionEventArgs.SetData(go);
 		}
 
-		public void UpdateCollision(ICollisor other, bool isColliding)
+		public void UpdateCollision(IEnumerable<IBody> possibleCollisions)
 		{
-			if(other == null) throw new NullReferenceException();
+			var newCollisions = new HashSet<IBody>();
 
-			if(!_contacts.ContainsKey(other))
+			foreach(var other in possibleCollisions)
 			{
-				_contacts.Add(other, isColliding);
+				if(this != other && this.Collisor.Intersects(other.Collisor))
+				{
+					newCollisions.Add(other);
+
+					if(!_currCollisions.Contains(other))
+					{
+						CollisionEnter?.Invoke(other.CollisionEventArgs);
+					}
+					else
+					{
+						CollisionStay?.Invoke(other.CollisionEventArgs);
+					}
+				}
 			}
 
-			//Check to Enter
-			if(_contacts[other] == false && isColliding)
+			foreach(var currCollision in _currCollisions)
 			{
-				CollisionEnter?.Invoke(other.Body.CollisionArgs);
+				if(!newCollisions.Contains(currCollision))
+				{
+					CollisionExit?.Invoke(currCollision.CollisionEventArgs);
+				}
 			}
 
-			//Check to Stay
-			if(_contacts[other] == true && isColliding)
-			{
-				CollisionStay?.Invoke(other.Body.CollisionArgs);
-			}
-
-			//Check to Exit
-			if(_contacts[other] == true && !isColliding)
-			{
-				CollisionExit?.Invoke(other.Body.CollisionArgs);
-			}
-
-			_contacts[other] = isColliding;
+			_currCollisions = newCollisions;
 		}
 
 		public void ApplyForce(Vector2 force) => _force += force;
@@ -96,6 +99,24 @@ namespace SuMamaLib.Collisions
 
 			_force = Vector2.Zero;
 			Velocity = Vector2.Zero;
+		}
+
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		private void Dispose(bool disposable)
+		{
+			if(disposable)
+			{
+				if(!_disposed)
+				{
+					Collisor.Dispose();
+					_disposed = true;
+				}
+			}
 		}
 	}
 }

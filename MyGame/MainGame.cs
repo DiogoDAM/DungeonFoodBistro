@@ -14,6 +14,8 @@ namespace MyGame
 		private CircleCollisor _circle;
 		private RigidBody _body1, _body2;
 
+		private CollisionWorld _world;
+
 		public MainGame() : base()
 		{
 			_objectsList.Add(new());
@@ -30,6 +32,10 @@ namespace MyGame
 			_body1.CollisionEnter += OnCollisionEnter;
 			_body1.CollisionStay += OnCollisionStay;
 			_body1.CollisionExit += OnCollisionExit;
+
+			_world = new(new Rectangle(0, 0, 1200, 1200));
+			_world.AddBody(_body1);
+			_world.AddBody(_body2);
 		}
 
 		public override void Update()
@@ -41,10 +47,7 @@ namespace MyGame
 			if(Input.Keyboard.KeyIsPressed(Keys.S)){ _body1.Velocity += new Vector2(0, 200); }
 			else if(Input.Keyboard.KeyIsPressed(Keys.W)){ _body1.Velocity += new Vector2(0, -200); }
 
-			_body1.UpdateCollision(_body2.Collisor, _body1.Collisor.Intersects(_body2.Collisor));
-
-			_body1.Update();
-			_body2.Update();
+			_world.Update();
 		}
 
 		public override void Draw()
@@ -57,16 +60,17 @@ namespace MyGame
 
 		}
 
-		public void OnCollisionEnter(CollisionArgs other)
+		public void OnCollisionEnter(CollisionEventArgs other)
 		{
 			System.Console.WriteLine("Enter");
 		}
 
-		public void OnCollisionStay(CollisionArgs other)
+		public void OnCollisionStay(CollisionEventArgs other)
 		{
+			System.Console.WriteLine("Stay");
 		}
 
-		public void OnCollisionExit(CollisionArgs other)
+		public void OnCollisionExit(CollisionEventArgs other)
 		{
 			System.Console.WriteLine("Exit");
 		}

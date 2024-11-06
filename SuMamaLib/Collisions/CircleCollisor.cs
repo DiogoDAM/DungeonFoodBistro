@@ -16,6 +16,8 @@ namespace SuMamaLib.Collisions
 		public int Diameter { get => Radius * 2; }
 		public float Circuference { get => 2 * (float)Math.PI * Radius; }
 
+		private bool _disposed;
+
 		public CircleCollisor(Vector2 pos, int radius)
 		{
 			Transform = new(pos);
@@ -62,6 +64,24 @@ namespace SuMamaLib.Collisions
 			float distanceSquared = (distX*distX) + (distY*distY);
 
 			return distanceSquared <= (circle.Radius * circle.Radius);
+		}
+
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		private void Dispose(bool disposable)
+		{
+			if(disposable)
+			{
+				if(!_disposed)
+				{
+					Body = null;
+					_disposed = true;
+				}
+			}
 		}
     }
 }

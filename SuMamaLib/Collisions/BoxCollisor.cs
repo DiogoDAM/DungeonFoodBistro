@@ -21,6 +21,8 @@ namespace SuMamaLib.Collisions
 		public Vector2 BottomLeft { get => new Vector2(Transform.Position.Y); }
 		public Vector2 BottomRight { get => new Vector2(Transform.Position.Y + Height); }
 
+		private bool _disposed;
+
 		public BoxCollisor(Transform transform, int w, int h)
 		{
 			Transform = transform;
@@ -82,6 +84,24 @@ namespace SuMamaLib.Collisions
 			float distanceSquared = (distX*distX) + (distY*distY);
 
 			return distanceSquared <= (circle.Radius * circle.Radius);
+		}
+
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		private void Dispose(bool disposable)
+		{
+			if(disposable)
+			{
+				if(!_disposed)
+				{
+					Body = null;
+					_disposed = true;
+				}
+			}
 		}
     }
 }
