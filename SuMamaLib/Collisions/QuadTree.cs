@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using SuMamaLib.Collisions.Interfaces;
 
 namespace SuMamaLib.Collisions
 {
@@ -10,7 +9,7 @@ namespace SuMamaLib.Collisions
 		private int _maxOfObjects;
 		private int _maxLevels;
 		private int _level;
-		private List<IBody> _collisorsList;
+		private List<ICollisor> _collisorsList;
 		private Rectangle _bounds;
 		private QuadTree tl, tr, bl, br;
 		private bool _isLeaf;
@@ -25,15 +24,15 @@ namespace SuMamaLib.Collisions
 			_isLeaf = true;
 		}
 
-		public bool Insert(IBody body)
+		public bool Insert(ICollisor collisor)
 		{
-			if(body == null) throw new NullReferenceException();
+			if(collisor == null) throw new NullReferenceException();
 
-			if(_bounds.Intersects(body.Collisor.BoundingRectangle))
+			if(_bounds.Intersects(collisor.Bounds))
 			{
 				if(_collisorsList.Count < _maxOfObjects)
 				{
-					_collisorsList.Add(body);
+					_collisorsList.Add(collisor);
 					return true;
 				}
 				else
@@ -46,35 +45,35 @@ namespace SuMamaLib.Collisions
 
 				if(!_isLeaf)
 				{
-					if(tl.Insert(body)) return true;
-					if(tr.Insert(body)) return true;
-					if(bl.Insert(body)) return true;
-					if(br.Insert(body)) return true;
+					if(tl.Insert(collisor)) return true;
+					if(tr.Insert(collisor)) return true;
+					if(bl.Insert(collisor)) return true;
+					if(br.Insert(collisor)) return true;
 				}
 			}
 
 			return false;
 		}
 		
-		public bool Remove(IBody body)
+		public bool Remove(ICollisor collisor)
 		{
-			if(body == null) throw new NullReferenceException();
+			if(collisor == null) throw new NullReferenceException();
 
-			if(_bounds.Intersects(body.Collisor.BoundingRectangle))
+			if(_bounds.Intersects(collisor.Bounds))
 			{
-				if(_collisorsList.Contains(body))
+				if(_collisorsList.Contains(collisor))
 				{
-					_collisorsList.Remove(body);
+					_collisorsList.Remove(collisor);
 					return true;
 				}
 				else
 				{
 					if(!_isLeaf)
 					{
-						if(tl.Remove(body)) return true;
-						if(tr.Remove(body)) return true;
-						if(bl.Remove(body)) return true;
-						if(br.Remove(body)) return true;
+						if(tl.Remove(collisor)) return true;
+						if(tr.Remove(collisor)) return true;
+						if(bl.Remove(collisor)) return true;
+						if(br.Remove(collisor)) return true;
 					}
 				}
 			}
@@ -110,17 +109,17 @@ namespace SuMamaLib.Collisions
 			_isLeaf = true;
 		}
 
-		public List<IBody> Query(IBody range, List<IBody> found)
+		public List<ICollisor> Query(ICollisor range, List<ICollisor> found)
 		{
 			if(range == null) throw new NullReferenceException();
 
-			if(_bounds.Intersects(range.Collisor.BoundingRectangle))
+			if(_bounds.Intersects(range.Bounds))
 			{
-				foreach(IBody body in _collisorsList)
+				foreach(ICollisor collisor in _collisorsList)
 				{
-					if(range.Collisor.BoundingRectangle.Intersects(body.Collisor.BoundingRectangle))
+					if(range.CheckCollision(collisor))
 					{
-						found.Add(body);
+						found.Add(collisor);
 					}
 				}
 
