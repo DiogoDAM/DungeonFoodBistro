@@ -9,10 +9,12 @@ namespace SuMamaLib.Collisions
 		private int _maxOfObjects;
 		private int _maxLevels;
 		private int _level;
-		private List<ICollisor> _collisorsList;
+		private List<BoxCollisor> _collisorsList;
 		private Rectangle _bounds;
 		private QuadTree tl, tr, bl, br;
 		private bool _isLeaf;
+
+		public int Count { get => GetCount(); }
 
 		public QuadTree(Rectangle boundary, int maxObjects, int maxLevels, int level=0)
 		{
@@ -24,7 +26,7 @@ namespace SuMamaLib.Collisions
 			_isLeaf = true;
 		}
 
-		public bool Insert(ICollisor collisor)
+		public bool Insert(BoxCollisor collisor)
 		{
 			if(collisor == null) throw new NullReferenceException();
 
@@ -55,7 +57,7 @@ namespace SuMamaLib.Collisions
 			return false;
 		}
 		
-		public bool Remove(ICollisor collisor)
+		public bool Remove(BoxCollisor collisor)
 		{
 			if(collisor == null) throw new NullReferenceException();
 
@@ -106,16 +108,16 @@ namespace SuMamaLib.Collisions
 			bl = new QuadTree(new Rectangle(x, y+h, w, h), _maxOfObjects, _maxLevels, _level++);
 			br = new QuadTree(new Rectangle(x+w, y+h, w, h), _maxOfObjects, _maxLevels, _level++);
 
-			_isLeaf = true;
+			_isLeaf = false;
 		}
 
-		public List<ICollisor> Query(ICollisor range, List<ICollisor> found)
+		public List<BoxCollisor> Query(BoxCollisor range, List<BoxCollisor> found)
 		{
 			if(range == null) throw new NullReferenceException();
 
 			if(_bounds.Intersects(range.Bounds))
 			{
-				foreach(ICollisor collisor in _collisorsList)
+				foreach(var collisor in _collisorsList)
 				{
 					if(range.CheckCollision(collisor))
 					{
@@ -134,6 +136,18 @@ namespace SuMamaLib.Collisions
 
 
 			return found;
+		}
+
+		private int GetCount()
+		{
+			if(_isLeaf)
+			{
+				return _collisorsList.Count;
+			}
+			else
+			{
+				return _collisorsList.Count + tl.Count + tr.Count + bl.Count + br.Count;
+			}
 		}
 
 	}

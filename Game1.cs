@@ -38,6 +38,10 @@ public class Game1 : Game
 		_mainGame = new();
 
 		SceneManager.AddScene(_mainGame);
+
+		_graphics.PreferredBackBufferWidth = 800;
+		_graphics.PreferredBackBufferHeight = 600;
+		_graphics.ApplyChanges();
     }
 
     protected override void Update(GameTime gameTime)
