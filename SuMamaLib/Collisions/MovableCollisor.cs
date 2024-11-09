@@ -7,8 +7,6 @@ namespace SuMamaLib.Collisions
     {
 		public Vector2 Velocity;
 
-		private Vector2 _gravity;
-
         public MovableCollisor(Transform transform, int w, int h) : base(transform, w, h)
         {
 			Mass = 1f;
@@ -21,21 +19,13 @@ namespace SuMamaLib.Collisions
 
 		public override void Update()
 		{
-			Velocity += _gravity / Mass;
-
 			Position += Velocity * Globals.DeltaTime;
-
-			Velocity = Vector2.Zero;
 		}
 
-		public void SetGravity(Vector2 gravity)
+		public void ApplyGravity(Vector2 grav)
 		{
-			_gravity = gravity;
+			Velocity += grav;
 		}
 
-		public void ApplyGravity(Vector2 gravity)
-		{
-			_gravity += gravity;
-		}
     }
 }

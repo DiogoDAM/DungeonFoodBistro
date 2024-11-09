@@ -2,26 +2,31 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SuMamaLib.Behaviours;
+using SuMamaLib.Collisions;
 using SuMamaLib.Inputs;
 using SuMamaLib.Utils;
 using SuMamaLib.Utils.Sprites;
 
 namespace MyGame
 {
-    public class Player : GameActor
+    public class Player : GameObject
     {
 		private Vector2 _speed;
+		private MovableCollisor col;
 
         public Player() : base()
         {
 			Transform.Position = new Vector2(100, 100);
 			Transform.Scale = new Vector2(2,2);
 			_speed = new Vector2(500,500);
-			Sprite = new Sprite(Globals.Content.Load<Texture2D>("Sprites/Ana"), new Point(0,0), new Point(32, 32));
+			Sprite = new Sprite(Globals.Content.Load<Texture2D>("Sprites/characterForTest"), new Point(0,0), new Point(32, 32));
+
+			col = new(Transform, 32, 48);
         }
 
 		public override void Start()
 		{
+			SceneManager.AddCollisor(col);
 		}
 
 		public override void Update()
@@ -39,7 +44,6 @@ namespace MyGame
 			}
 
 			Transform.Translate(dir * _speed * new Vector2(Globals.DeltaTime, Globals.DeltaTime));
-
 		}
     }
 }

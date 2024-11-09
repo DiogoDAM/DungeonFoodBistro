@@ -4,9 +4,9 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Jogos/DungeonFoodBistro/Content/../../../Users/diogo/Documents/Ana.png</File>
+    <File>C:/Jogos/DungeonFoodBistro/Content/Sprites/characterTest.png</File>
   </SourceFiles>
   <DestFiles>
-    <File>Sprites/Ana.png</File>
+    <File>Sprites/characterForTest.png</File>
   </DestFiles>
 </SourceFileCollection>

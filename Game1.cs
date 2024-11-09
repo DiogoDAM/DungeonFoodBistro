@@ -33,7 +33,7 @@ public class Game1 : Game
 		Globals.Initialize(GraphicsDevice, Content);
 		Drawer.Initialize(GraphicsDevice);
 
-		Globals.Content.Load<Texture2D>("Sprites/Ana");
+		Globals.Content.Load<Texture2D>("Sprites/characterForTest");
 
 		_mainGame = new();
 
@@ -59,7 +59,7 @@ public class Game1 : Game
 	protected override void Draw(GameTime gameTime) 
 	{ 
 		GraphicsDevice.Clear(Color.CornflowerBlue);
-		Globals.SpriteBatch.Begin();
+		Globals.SpriteBatch.Begin(sortMode: SpriteSortMode.BackToFront, samplerState: SamplerState.PointClamp);
 
 		SceneManager.Draw();
 

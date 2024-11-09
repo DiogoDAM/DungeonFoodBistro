@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using SuMamaLib.Collisions;
 
 namespace SuMamaLib.Behaviours
 {
@@ -93,5 +95,24 @@ namespace SuMamaLib.Behaviours
 			return _scenesList[CurrentScene].GetObject<T>(layer);
 		}
 
+		public static void AddCollisor(BoxCollisor collisor)
+		{
+			_scenesList[CurrentScene].AddCollisor(collisor);
+		}
+
+		public static void CreateCollisor(Vector2 pos, int w, int h, bool isStatic=true)
+		{
+			_scenesList[CurrentScene].CreateCollisor(pos, w, h, isStatic);
+		}
+
+		public static void RemoveCollisor(BoxCollisor collisor)
+		{
+			_scenesList[CurrentScene].RemoveCollisor(collisor);
+		}
+
+		public static void DestroyCollisor(BoxCollisor collisor)
+		{
+			_scenesList[CurrentScene].DestroyCollisor(collisor);
+		}
 	}
 }

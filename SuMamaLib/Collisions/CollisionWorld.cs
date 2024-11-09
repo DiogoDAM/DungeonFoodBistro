@@ -9,14 +9,16 @@ namespace SuMamaLib.Collisions
 		private QuadTree _qt;
 		private List<BoxCollisor> _collisions;
 		private Rectangle _bounds;
+		private Vector2 _gravity;
 
 		public int CollisorQuantity { get => _qt.Count; }
 
-		public CollisionWorld(Rectangle boundary)
+		public CollisionWorld(Rectangle boundary, Vector2 grav)
 		{
 			_bounds = boundary;
 			_qt = new(_bounds, 25, 5);
 			_collisions = new();
+			_gravity = grav;
 		}
 
 		public void Update()

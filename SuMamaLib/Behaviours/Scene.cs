@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Xna.Framework;
+using SuMamaLib.Collisions;
 
 namespace SuMamaLib.Behaviours
 {
 	public class Scene : IDisposable
 	{
 		protected List<List<GameObject>> _objectsList;
+		protected CollisionWorld _world;
 
 		protected bool _disposed;
 
@@ -86,6 +89,26 @@ namespace SuMamaLib.Behaviours
 		public T GetObject<T>(int layer)
 		{
 			return _objectsList[layer].OfType<T>().FirstOrDefault();
+		}
+
+		public void AddCollisor(BoxCollisor collisor)
+		{
+			_world.Add(collisor);
+		}
+
+		public void CreateCollisor(Vector2 pos, int w, int h, bool isStatic=true)
+		{
+			_world.Create(pos, w, h, isStatic);
+		}
+
+		public void DestroyCollisor(BoxCollisor collisor)
+		{
+			_world.Destroy(collisor);
+		}
+
+		public void RemoveCollisor(BoxCollisor collisor)
+		{
+			_world.Remove(collisor);
 		}
 
         public void Dispose()

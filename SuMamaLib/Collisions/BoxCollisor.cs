@@ -9,7 +9,7 @@ namespace SuMamaLib.Collisions
     public class BoxCollisor : IDisposableObject
     {
         public Transform Transform { get; set; }
-		public Rectangle Bounds { get => new Rectangle(Position.ToPoint(), new Point(Width, Height)); }
+		public Rectangle Bounds { get => new Rectangle(Transform.Position.ToPoint() + Offset, new Point(Width, Height)); }
 		public CollisionEventArgs EventArgs { get; protected set; }
 		public bool IsSolid { get; set; }=false;
 		public float Mass { get; set; }
@@ -18,6 +18,7 @@ namespace SuMamaLib.Collisions
 		public Vector2 Position { get => Transform.Position; set => Transform.Position = value; }
 		public int Width { get; }
 		public int Height { get; }
+		public Point Offset { get; set; }
 
 		public int Left { get => Bounds.Left; }
 		public int Right { get => Bounds.Right; }

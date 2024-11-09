@@ -13,7 +13,7 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin ../../../Users/diogo/Documents/Ana.png
+#begin Sprites/characterTest.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -23,5 +23,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../../../Users/diogo/Documents/Ana.png;Sprites/Ana.png
+/build:Sprites/characterTest.png;Sprites/characterForTest.png
 
