@@ -33,8 +33,9 @@ public class Game1 : Game
 		Globals.Initialize(GraphicsDevice, Content);
 		Drawer.Initialize(GraphicsDevice);
 
-		Globals.Content.Load<Texture2D>("Sprites/characterForTest");
+		Globals.Content.Load<Texture2D>("Sprites/waiterTest");
 
+		Globals.Content.Load<SpriteFont>("Fonts/Alagard");
 		_mainGame = new();
 
 		SceneManager.AddScene(_mainGame);

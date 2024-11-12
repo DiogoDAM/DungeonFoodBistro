@@ -24,4 +24,6 @@ C:\Jogos\DungeonFoodBistro\obj\Debug\net8.0\DungeonFoodBistro.pdb
 C:\Jogos\DungeonFoodBistro\obj\Debug\net8.0\DungeonFoodBistro.genruntimeconfig.cache
 C:\Jogos\DungeonFoodBistro\obj\Debug\net8.0\ref\DungeonFoodBistro.dll
 C:\Jogos\DungeonFoodBistro\obj\Debug\net8.0\DungeonFoodBistro.sourcelink.json
-C:\Jogos\DungeonFoodBistro\bin\Debug\net8.0\Content\Sprites\characterForTest.xnb
+C:\Jogos\DungeonFoodBistro\bin\Debug\net8.0\Content\Fonts\Alagard.xnb
+C:\Jogos\DungeonFoodBistro\bin\Debug\net8.0\Content\Sprites\customerTest.xnb
+C:\Jogos\DungeonFoodBistro\bin\Debug\net8.0\Content\Sprites\waiterTest.xnb

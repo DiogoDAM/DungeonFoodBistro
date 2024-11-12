@@ -4,9 +4,13 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Jogos/DungeonFoodBistro/Content/Sprites/characterTest.png</File>
+    <File>C:/Jogos/DungeonFoodBistro/Content/Fonts/Alagard.spritefont</File>
+    <File>C:/Jogos/DungeonFoodBistro/Content/Sprites/customerTest.png</File>
+    <File>C:/Jogos/DungeonFoodBistro/Content/Sprites/waiterTest.png</File>
   </SourceFiles>
   <DestFiles>
-    <File>Sprites/characterForTest.png</File>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
   </DestFiles>
 </SourceFileCollection>

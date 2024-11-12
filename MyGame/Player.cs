@@ -19,9 +19,9 @@ namespace MyGame
 			Transform.Position = new Vector2(100, 100);
 			Transform.Scale = new Vector2(2,2);
 			_speed = new Vector2(500,500);
-			Sprite = new Sprite(Globals.Content.Load<Texture2D>("Sprites/characterForTest"), new Point(0,0), new Point(32, 32));
+			Sprite = new Sprite(Globals.Content.Load<Texture2D>("Sprites/waiterTest"), new Point(0,0), new Point(32, 32));
 
-			col = new(Transform, 32, 48);
+			col = new(Transform, 32, 64);
         }
 
 		public override void Start()
