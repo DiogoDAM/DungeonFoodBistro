@@ -8,13 +8,11 @@ namespace SuMamaLib.Collisions
         public StaticCollisor(Transform transform, int w, int h) : base(transform, w, h)
         {
 			Mass = 1f;
-			IsSolid = true;
         }
 
         public StaticCollisor(Vector2 pos, int w, int h) : base(pos, w, h)
         {
 			Mass = 1f;
-			IsSolid = true;
         }
     }
 }

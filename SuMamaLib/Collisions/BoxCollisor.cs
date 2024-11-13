@@ -11,9 +11,9 @@ namespace SuMamaLib.Collisions
         public Transform Transform { get; set; }
 		public Rectangle Bounds { get => new Rectangle(Transform.Position.ToPoint() + Offset, new Point(Width, Height)); }
 		public CollisionEventArgs EventArgs { get; protected set; }
-		public bool IsSolid { get; set; }=false;
 		public float Mass { get; set; }
 		public bool Disposed { get; protected set; }
+		public CollisionClass Class { get; set; }
 
 		public Vector2 Position { get => Transform.Position; set => Transform.Position = value; }
 		public int Width { get; }
@@ -40,6 +40,7 @@ namespace SuMamaLib.Collisions
 			Width = w;
 			Height = h;
 			_currCollisors = new();
+			Class = new();
 		}
 
 		public BoxCollisor(Vector2 pos, int w, int h)
@@ -48,6 +49,7 @@ namespace SuMamaLib.Collisions
 			Width = w;
 			Height = h;
 			_currCollisors = new();
+			Class = new();
 		}
 
 		public virtual void Update()
@@ -63,15 +65,15 @@ namespace SuMamaLib.Collisions
         {
 			var newCollisions = new HashSet<BoxCollisor>();
 
-			foreach(var collision in possibleCollisors)
+			foreach(var collisor in possibleCollisors)
 			{
-				if(collision != this)
+				if(collisor != this && (Class.CheckClassForCollision(collisor) || Class.CheckClassForCollisionSolid(collisor)))
 				{
-					newCollisions.Add(collision);
+					newCollisions.Add(collisor);
 
-					if(IsSolid) { ResolveCollision(collision); }
+					if(Class.CheckClassForCollisionSolid(collisor)) { ResolveCollision(collisor); }
 
-					if(!_currCollisors.Contains(collision))
+					if(!_currCollisors.Contains(collisor))
 					{
 						CollisionEnter?.Invoke(EventArgs);
 					}
@@ -82,9 +84,9 @@ namespace SuMamaLib.Collisions
 				}
 			}
 
-			foreach(var collision in _currCollisors)
+			foreach(var collisor in _currCollisors)
 			{
-				if(!newCollisions.Contains(collision))
+				if(!newCollisions.Contains(collisor))
 				{
 					CollisionExit?.Invoke(EventArgs);
 				}

@@ -24,7 +24,10 @@ namespace MyGame
 			Random random = new();
 			for(int i=0; i<20; i++)
 			{
-				AddCollisor(new StaticCollisor(new Vector2(random.Next(0, 800), random.Next(0, 600)), 32, 32));
+				var col = new StaticCollisor(new Vector2(random.Next(0, 800), random.Next(0, 600)), 32, 32);
+				col.Class.Classification.Add("wall");
+				col.Class.Solid.Add("wall");
+				AddCollisor(col);
 			}
 
 			Text = new SpriteText(Globals.Content.Load<SpriteFont>("Fonts/Alagard"), 16, "Dragon Pie", new Vector2(300, 100));

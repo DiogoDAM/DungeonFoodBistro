@@ -22,6 +22,9 @@ namespace MyGame
 			Sprite = new Sprite(Globals.Content.Load<Texture2D>("Sprites/waiterTest"), new Point(0,0), new Point(32, 32));
 
 			col = new(Transform, 32, 64);
+			col.Class.Classification.Add("player");
+			col.Class.Collision.Add("wall");
+			col.Class.Solid.Add("wall");
         }
 
 		public override void Start()

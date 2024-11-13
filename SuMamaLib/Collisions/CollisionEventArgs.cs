@@ -9,6 +9,7 @@ namespace SuMamaLib.Collisions
 		public BoxCollisor Collisor;
 		public GameObject GameObject;
 		public Transform Transform;
+		public CollisionClass Class;
 
 		public Vector2 Position { get => Transform.Position; set => Transform.Position = value; }
 
@@ -17,6 +18,7 @@ namespace SuMamaLib.Collisions
 			Collisor = collisor;
 			Transform = transform;
 			GameObject = null;
+			Class = Collisor.Class;
 		}
 
 		public void SetGameObj(GameObject gameObj)
