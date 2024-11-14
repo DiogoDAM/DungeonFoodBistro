@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SuMamaLib.Behaviours;
 using SuMamaLib.Collisions;
+using SuMamaLib.Gui;
 using SuMamaLib.Utils;
 using SuMamaLib.Utils.Sprites;
 
@@ -11,7 +12,7 @@ namespace MyGame
 	public class MainGame : Scene
 	{
 		private Player _player;
-		private SpriteText Text;
+		private UiLabel _label;
 
 		public MainGame() : base()
 		{
@@ -30,7 +31,9 @@ namespace MyGame
 				AddCollisor(col);
 			}
 
-			Text = new SpriteText(Globals.Content.Load<SpriteFont>("Fonts/Alagard"), 16, "Dragon Pie", new Vector2(300, 100));
+			_label = new UiLabel(Globals.Content.Load<SpriteFont>("Fonts/Alagard"), 16, "Dragon Pie");
+			_label.Transform.Position = new Vector2(400, 300);
+			_label.SetHalignCenter();
 
 			_player = new();
 
@@ -49,7 +52,7 @@ namespace MyGame
 		{
 			base.Draw();
 
-			Globals.SpriteBatch.DrawString(Text.Font, Text.Text, Text.Position, Text.Color);
+			_label.Draw();
 
 			_world.Draw();
 		}
