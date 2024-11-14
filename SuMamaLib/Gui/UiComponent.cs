@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SuMamaLib.Utils;
@@ -30,6 +31,17 @@ namespace SuMamaLib.Gui
 			_children = new();
 		}
 
+        public UiComponent(UiComponent parent)
+		{
+			Transform = new();
+			Color = Color.White;
+			SpriteEffect = SpriteEffects.None;
+			Depth = 0f;
+			Origin = Vector2.Zero;
+			_children = new();
+			_parent = parent;
+		}
+
 		public virtual void Update()
 		{
 			foreach(var child in _children)
@@ -44,6 +56,25 @@ namespace SuMamaLib.Gui
 			{
 				child.Draw();
 			}
+		}
+
+		public void AddChild(UiComponent child)
+		{
+			if(child == null) throw new NullReferenceException();
+
+			_children.Add(child);
+		}
+
+		public void RemoveChild(UiComponent child)
+		{
+			if(child == null) throw new NullReferenceException();
+
+			_children.Remove(child);
+		}
+
+		public T GetChild<T>()
+		{
+			return _children.OfType<T>().FirstOrDefault();
 		}
 
         public void Dispose()
