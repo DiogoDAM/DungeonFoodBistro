@@ -14,6 +14,7 @@ namespace MyGame
 		private Player _player;
 		private UiLabel _label;
 		private UiTexturedButton _button;
+		private UiSimplePanel _panel;
 
 		public MainGame() : base()
 		{
@@ -33,16 +34,22 @@ namespace MyGame
 			}
 
 			_label = new UiLabel(Globals.Content.Load<SpriteFont>("Fonts/Alagard"), 16, "Dragon Pie");
+			_label.Transform.Position = new Vector2(10, 10);
 			_label.Color = Color.White;
 
 			_button = new UiTexturedButton(new Sprite(Globals.Content.Load<Texture2D>("Sprites/buttonTest")), 150, 80, Color.White);
-			_button.AddChild(_label);
 			_button.CursorHover += OnCursorHover;
 			_button.CursorEndHover += OnCursorEndHover;
 
 			_button.CursorClick += OnCursorClick;
 			_button.CursorClicking += OnCursorClicking;
 			_button.CursorEndClick += OnCursorEndClick;
+
+			_panel = new UiSimplePanel(new Vector2(100, 100), 500, 500, Color.Black);
+			_panel.AddChild(_button);
+			_panel.AddChild(_label);
+
+			_button.SetPositionCentralized();
 
 			_player = new();
 
@@ -53,7 +60,7 @@ namespace MyGame
 		{
 			base.Update();
 
-			_button.Update();
+			_panel.Update();
 
 			_world.Update();
 
@@ -63,7 +70,7 @@ namespace MyGame
 		{
 			base.Draw();
 
-			_button.Draw();
+			_panel.Draw();
 
 			_world.Draw();
 		}
