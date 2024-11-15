@@ -34,14 +34,16 @@ public class Game1 : Game
 		Drawer.Initialize(GraphicsDevice);
 
 		Globals.Content.Load<Texture2D>("Sprites/waiterTest");
+		Globals.Content.Load<Texture2D>("Sprites/buttonTest");
+		Globals.Content.Load<Texture2D>("Sprites/buttonTestNineSlice");
 
 		Globals.Content.Load<SpriteFont>("Fonts/Alagard");
 		_mainGame = new();
 
 		SceneManager.AddScene(_mainGame);
 
-		_graphics.PreferredBackBufferWidth = 800;
-		_graphics.PreferredBackBufferHeight = 600;
+		_graphics.PreferredBackBufferWidth = 1024;
+		_graphics.PreferredBackBufferHeight = 576;
 		_graphics.ApplyChanges();
     }
 

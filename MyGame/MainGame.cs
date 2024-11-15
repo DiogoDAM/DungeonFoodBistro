@@ -13,6 +13,7 @@ namespace MyGame
 	{
 		private Player _player;
 		private UiLabel _label;
+		private UiTexturedButton _button;
 
 		public MainGame() : base()
 		{
@@ -25,15 +26,23 @@ namespace MyGame
 			Random random = new();
 			for(int i=0; i<20; i++)
 			{
-				var col = new StaticCollisor(new Vector2(random.Next(0, 800), random.Next(0, 600)), 32, 32);
+				var col = new StaticCollisor(new Vector2(random.Next(0, 1000), random.Next(0, 550)), 32, 32);
 				col.Class.Classification.Add("wall");
 				col.Class.Solid.Add("wall");
 				AddCollisor(col);
 			}
 
 			_label = new UiLabel(Globals.Content.Load<SpriteFont>("Fonts/Alagard"), 16, "Dragon Pie");
-			_label.Transform.Position = new Vector2(400, 300);
-			_label.SetHalignCenter();
+			_label.Color = Color.White;
+
+			_button = new UiTexturedButton(new Sprite(Globals.Content.Load<Texture2D>("Sprites/buttonTest")), 150, 80, Color.White);
+			_button.AddChild(_label);
+			_button.CursorHover += OnCursorHover;
+			_button.CursorEndHover += OnCursorEndHover;
+
+			_button.CursorClick += OnCursorClick;
+			_button.CursorClicking += OnCursorClicking;
+			_button.CursorEndClick += OnCursorEndClick;
 
 			_player = new();
 
@@ -44,6 +53,8 @@ namespace MyGame
 		{
 			base.Update();
 
+			_button.Update();
+
 			_world.Update();
 
 		}
@@ -52,9 +63,34 @@ namespace MyGame
 		{
 			base.Draw();
 
-			_label.Draw();
+			_button.Draw();
 
 			_world.Draw();
+		}
+
+		private void OnCursorHover()
+		{
+			_button.Color = Color.Yellow;
+		}
+
+		private void OnCursorEndHover()
+		{
+			_button.Color = Color.White;
+		}
+
+		private void OnCursorClick()
+		{
+			_button.Color = Color.Red;
+		}
+
+		private void OnCursorClicking()
+		{
+			_button.Color = Color.DarkRed;
+		}
+
+		private void OnCursorEndClick()
+		{
+			_button.Color = Color.Gray;
 		}
 	}
 }

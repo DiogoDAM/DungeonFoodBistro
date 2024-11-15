@@ -14,9 +14,13 @@ namespace SuMamaLib.Gui
 		protected UiComponent _parent;
 
 		public Transform Transform;
+		public int Width;
+		public int Height;
+		public Vector2 Position { get => Transform.Position + Offset + ((_parent != null) ? _parent.Position : Vector2.Zero); }
 		public Color Color;
 		public SpriteEffects SpriteEffect;
 		public float Depth;
+		public Vector2 Offset;
 		public Vector2 Origin;
 
         public bool Disposed { get; protected set; }
@@ -25,19 +29,26 @@ namespace SuMamaLib.Gui
 		{
 			Transform = new();
 			Color = Color.White;
+			Width = 0;
+			Height = 0;
 			SpriteEffect = SpriteEffects.None;
 			Depth = 0f;
+			Offset = Vector2.Zero;
 			Origin = Vector2.Zero;
 			_children = new();
+			_parent = null;
 		}
 
         public UiComponent(UiComponent parent)
 		{
 			Transform = new();
 			Color = Color.White;
+			Width = 0;
+			Height = 0;
 			SpriteEffect = SpriteEffects.None;
 			Depth = 0f;
 			Origin = Vector2.Zero;
+			Offset = Vector2.Zero;
 			_children = new();
 			_parent = parent;
 		}
@@ -58,11 +69,24 @@ namespace SuMamaLib.Gui
 			}
 		}
 
+		public void AddParent(UiComponent parent)
+		{
+			if(parent == null) throw new NullReferenceException();
+
+			_parent = parent;
+		}
+
+		public void RemoveParent()
+		{
+			_parent = null;
+		}
+
 		public void AddChild(UiComponent child)
 		{
 			if(child == null) throw new NullReferenceException();
 
 			_children.Add(child);
+			child.AddParent(this);
 		}
 
 		public void RemoveChild(UiComponent child)
@@ -70,6 +94,32 @@ namespace SuMamaLib.Gui
 			if(child == null) throw new NullReferenceException();
 
 			_children.Remove(child);
+			child.RemoveParent();
+		}
+
+		// methods to set position relative to parent
+		public void SetPositionCentralized()
+		{
+			if(_parent != null) 
+			{
+				Transform.Position = new Vector2(_parent.Width/2, _parent.Height/2);
+			}
+		}
+
+		public void SetPositionXCentralized()
+		{
+			if(_parent != null) 
+			{
+				Transform.Position.X = _parent.Width/2;
+			}
+		}
+
+		public void SetPositionYCentralized()
+		{
+			if(_parent != null) 
+			{
+				Transform.Position.Y = _parent.Height/2;
+			}
 		}
 
 		public T GetChild<T>()

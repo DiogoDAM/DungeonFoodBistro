@@ -12,6 +12,13 @@ namespace SuMamaLib.Utils.Sprites
 		public Rectangle Bounds { get { return new Rectangle(StartPos, Size); } }
 		private bool _disposed = false;
 
+		public Sprite(Texture2D texture)
+		{
+			SetTexture(texture);
+			StartPos = new Point(0,0);
+			Size = new Point(texture.Width, texture.Height);
+		}
+
         public Sprite(Texture2D texture, Rectangle rect)
         {
             SetTexture(texture);

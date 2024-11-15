@@ -27,3 +27,5 @@ C:\Jogos\DungeonFoodBistro\obj\Debug\net8.0\DungeonFoodBistro.sourcelink.json
 C:\Jogos\DungeonFoodBistro\bin\Debug\net8.0\Content\Fonts\Alagard.xnb
 C:\Jogos\DungeonFoodBistro\bin\Debug\net8.0\Content\Sprites\customerTest.xnb
 C:\Jogos\DungeonFoodBistro\bin\Debug\net8.0\Content\Sprites\waiterTest.xnb
+C:\Jogos\DungeonFoodBistro\bin\Debug\net8.0\Content\Sprites\buttonTest.xnb
+C:\Jogos\DungeonFoodBistro\bin\Debug\net8.0\Content\Sprites\buttonTestNineSlice.xnb

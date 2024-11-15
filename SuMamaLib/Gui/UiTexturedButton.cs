@@ -3,12 +3,14 @@ using Microsoft.Xna.Framework;
 using SuMamaLib.Inputs;
 using SuMamaLib.Utils;
 using SuMamaLib.Utils.Interfaces;
+using SuMamaLib.Utils.Sprites;
 
 namespace SuMamaLib.Gui
 {
-	public class UiSimpleButton : UiComponent, IClickable
+	public class UiTexturedButton : UiComponent, IClickable
 	{
 		public Rectangle Bounds { get => new Rectangle((int)Position.X, (int)Position.Y, Width, Height); }
+		public Sprite Sprite { get; }
 
 		public event Action CursorHover;
 		public event Action CursorEndHover;
@@ -19,24 +21,39 @@ namespace SuMamaLib.Gui
 		private bool _cursorHover;
 		private bool _cursorClicking;
 
-		public UiSimpleButton() : base()
+		public UiTexturedButton() : base()
 		{
+			Sprite = null;
 		}
 
-		public UiSimpleButton(Rectangle bounds, Color color)
+		public UiTexturedButton(Sprite sprite, Rectangle bounds, Color color)
 		{
+			Sprite = sprite;
 			Transform.Position = bounds.Location.ToVector2();
 			Width = bounds.Width;
 			Height = bounds.Height;
 			Color = color;
 		}
 
-		public UiSimpleButton(int w, int h, Color color)
+		public UiTexturedButton(Sprite sprite, int w, int h, Color color)
 		{
+			Sprite = sprite;
 			Transform.Position = Vector2.Zero;
 			Width = w;
 			Height = h;
 			Color = color;
+		}
+
+		public void SearchSpriteFrame(Point srcPos, Point srcSize)
+		{
+			Sprite.StartPos = srcPos;
+			Sprite.Size = srcSize;
+		}
+
+		public void SearchSpriteFrame(Rectangle srcRect)
+		{
+			Sprite.StartPos = srcRect.Location;
+			Sprite.Size = srcRect.Size;
 		}
 
 		public override void Update()
@@ -47,8 +64,8 @@ namespace SuMamaLib.Gui
 
 		public override void Draw()
 		{
-			Drawer.DrawFillRectangle(Bounds, Color);
 			base.Draw();
+			Globals.SpriteBatch.Draw(Sprite.Texture, Position, Sprite.Bounds, Color, Transform.Rotation, Origin, Transform.Scale, SpriteEffect, Depth);
 		}
 
 		private void CheckCursorEvents()

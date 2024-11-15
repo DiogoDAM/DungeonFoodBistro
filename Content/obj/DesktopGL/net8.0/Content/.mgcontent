@@ -5,10 +5,14 @@
   <Config />
   <SourceFiles>
     <File>C:/Jogos/DungeonFoodBistro/Content/Fonts/Alagard.spritefont</File>
+    <File>C:/Jogos/DungeonFoodBistro/Content/Sprites/buttonTest.png</File>
+    <File>C:/Jogos/DungeonFoodBistro/Content/Sprites/buttonTestNineSlice.png</File>
     <File>C:/Jogos/DungeonFoodBistro/Content/Sprites/customerTest.png</File>
     <File>C:/Jogos/DungeonFoodBistro/Content/Sprites/waiterTest.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

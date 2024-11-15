@@ -8,6 +8,8 @@ namespace SuMamaLib.Gui
 	public class UiLabel : UiComponent
 	{
 		public SpriteText Text;
+		public new int Width { get => (int)Text.TextSize.X; }
+		public new int Height { get => (int)Text.TextSize.Y; }
 
 		public UiLabel() : base()
 		{
@@ -26,17 +28,17 @@ namespace SuMamaLib.Gui
 
 		public void SetHalignCenter()
 		{
-			Text.Position = -(Text.TextSize/2);
+			Offset = -(Text.TextSize/2);
 		}
 
 		public void SetHalignRight()
 		{
-			Text.Position = Vector2.Zero;
+			Offset = Vector2.Zero;
 		}
 
 		public void SetHalignLeft()
 		{
-			Text.Position = Text.TextSize;
+			Offset = Text.TextSize;
 		}
 
 		public override void Draw()
@@ -44,7 +46,7 @@ namespace SuMamaLib.Gui
 			Vector2 parentPos = Vector2.Zero;
 			if(_parent != null) parentPos = _parent.Transform.Position;
 
-			Globals.SpriteBatch.DrawString(Text.Font, Text.Text, parentPos + Transform.Position + Text.Position, Text.Color, Transform.Rotation, Origin, Transform.Scale, Text.SpriteEffect, Depth);
+			Globals.SpriteBatch.DrawString(Text.Font, Text.Text, Position, Color, Transform.Rotation, Origin, Transform.Scale, SpriteEffect, Depth);
 			base.Draw();
 		}
 	}
