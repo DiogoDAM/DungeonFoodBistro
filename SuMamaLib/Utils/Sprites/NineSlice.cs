@@ -88,18 +88,18 @@ namespace SuMamaLib.Utils.Sprites
 
 			//Top
 			Globals.SpriteBatch.Draw(Texture, pos, _topLeft, color, rot, origin, scale, se, depth);
-			Globals.SpriteBatch.Draw(Texture, new Vector2(pos.X + width, pos.Y), _topMiddle, color, rot, origin, new Vector2(ws / width, scale.Y), se, depth);
-			Globals.SpriteBatch.Draw(Texture, new Vector2(pos.X + width*2 + ws, pos.Y), _topRight, color, rot, origin, scale, se, depth);
+			Globals.SpriteBatch.Draw(Texture, new Vector2(pos.X + width, pos.Y), _topMiddle, color, rot, origin, new Vector2(ws, scale.Y), se, depth);
+			Globals.SpriteBatch.Draw(Texture, new Vector2(pos.X + width + ws * width, pos.Y), _topRight, color, rot, origin, scale, se, depth);
 
 			//Middle
-			Globals.SpriteBatch.Draw(Texture, new Vector2(pos.X, pos.Y + height + hs), _midLeft, color, rot, origin, new Vector2(scale.X, hs / height), se, depth);
-			Globals.SpriteBatch.Draw(Texture, new Vector2(pos.X + width, pos.Y + height + hs), _midMiddle, color, rot, origin, new Vector2(ws / width, hs / height), se, depth);
-			Globals.SpriteBatch.Draw(Texture, new Vector2(pos.X + width*2 + ws, pos.Y + height + hs), _midRight, color, rot, origin, new Vector2(scale.X, hs / height), se, depth);
+			Globals.SpriteBatch.Draw(Texture, new Vector2(pos.X, pos.Y + height), _midLeft, color, rot, origin, new Vector2(scale.X, hs), se, depth);
+			Globals.SpriteBatch.Draw(Texture, new Vector2(pos.X + width, pos.Y + height), _midMiddle, color, rot, origin, new Vector2(ws, hs), se, depth);
+			Globals.SpriteBatch.Draw(Texture, new Vector2(pos.X + width + ws * width, pos.Y + height), _midRight, color, rot, origin, new Vector2(scale.X, hs), se, depth);
 
 			//Bottom
-			Globals.SpriteBatch.Draw(Texture, new Vector2(pos.X, pos.Y + height*2 + hs), _bottomLeft, color, rot, origin, scale, se, depth);
-			Globals.SpriteBatch.Draw(Texture, new Vector2(pos.X + width, pos.Y + height*2 + hs), _bottomMiddle, color, rot, origin, new Vector2(ws / width, scale.Y), se, depth);
-			Globals.SpriteBatch.Draw(Texture, new Vector2(pos.X + width*2 + ws, pos.Y + height*2 + hs), _bottomRight, color, rot, origin, scale, se, depth);
+			Globals.SpriteBatch.Draw(Texture, new Vector2(pos.X, pos.Y + height + hs * height), _bottomLeft, color, rot, origin, scale, se, depth);
+			Globals.SpriteBatch.Draw(Texture, new Vector2(pos.X + width, pos.Y + height + hs * height), _bottomMiddle, color, rot, origin, new Vector2(ws, scale.Y), se, depth);
+			Globals.SpriteBatch.Draw(Texture, new Vector2(pos.X + width + ws * width, pos.Y + height + hs * height), _bottomRight, color, rot, origin, scale, se, depth);
 		}
 	}
 }

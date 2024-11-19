@@ -46,7 +46,7 @@ namespace MyGame
 			_button.CursorEndClick += OnCursorEndClick;
 
 			_panel = new UiTexturedPanel(new NineSlice(Globals.Content.Load<Texture2D>("Sprites/buttonTestNineSlice"), new Rectangle(0,0, 33, 33)), new Vector2(100, 100), 500, 500);
-			_panel.SetNineSliceToStretch(500,500);
+			_panel.SetNineSliceToStretch(5,5);
 			_panel.AddChild(_button);
 			_panel.AddChild(_label);
 
