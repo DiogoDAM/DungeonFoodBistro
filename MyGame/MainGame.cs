@@ -14,7 +14,7 @@ namespace MyGame
 		private Player _player;
 		private UiLabel _label;
 		private UiTexturedButton _button;
-		private UiSimplePanel _panel;
+		private UiTexturedPanel _panel;
 
 		public MainGame() : base()
 		{
@@ -45,7 +45,8 @@ namespace MyGame
 			_button.CursorClicking += OnCursorClicking;
 			_button.CursorEndClick += OnCursorEndClick;
 
-			_panel = new UiSimplePanel(new Vector2(100, 100), 500, 500, Color.Black);
+			_panel = new UiTexturedPanel(new NineSlice(Globals.Content.Load<Texture2D>("Sprites/buttonTestNineSlice"), new Rectangle(0,0, 33, 33)), new Vector2(100, 100), 500, 500);
+			_panel.SetNineSliceToStretch(500,500);
 			_panel.AddChild(_button);
 			_panel.AddChild(_label);
 
