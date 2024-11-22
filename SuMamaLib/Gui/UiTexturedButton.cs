@@ -64,8 +64,9 @@ namespace SuMamaLib.Gui
 
 		public override void Draw()
 		{
-			base.Draw();
 			Globals.SpriteBatch.Draw(Sprite.Texture, Position, Sprite.Bounds, Color, Transform.Rotation, Origin, Transform.Scale, SpriteEffect, Depth);
+
+			base.Draw();
 		}
 
 		private void CheckCursorEvents()

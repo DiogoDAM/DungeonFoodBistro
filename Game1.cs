@@ -62,7 +62,7 @@ public class Game1 : Game
 	protected override void Draw(GameTime gameTime) 
 	{ 
 		GraphicsDevice.Clear(Color.CornflowerBlue);
-		Globals.SpriteBatch.Begin(sortMode: SpriteSortMode.BackToFront, samplerState: SamplerState.PointClamp);
+		Globals.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
 		SceneManager.Draw();
 

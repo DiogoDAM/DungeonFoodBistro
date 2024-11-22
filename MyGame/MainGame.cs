@@ -40,17 +40,16 @@ namespace MyGame
 			_button = new UiTexturedButton(new Sprite(Globals.Content.Load<Texture2D>("Sprites/buttonTest")), 150, 80, Color.White);
 			_button.CursorHover += OnCursorHover;
 			_button.CursorEndHover += OnCursorEndHover;
-
 			_button.CursorClick += OnCursorClick;
 			_button.CursorClicking += OnCursorClicking;
 			_button.CursorEndClick += OnCursorEndClick;
+			_button.AddChild(_label);
 
-			_panel = new UiTexturedPanel(new NineSlice(Globals.Content.Load<Texture2D>("Sprites/buttonTestNineSlice"), new Rectangle(0,0, 33, 33)), new Vector2(100, 100), 500, 500);
-			_panel.SetNineSliceToStretch(5,5);
+			_panel = new UiTexturedPanel(new NineSlice(Globals.Content.Load<Texture2D>("Sprites/buttonTestNineSlice"), new Rectangle(0,0, 33, 33)), new Vector2(1024-500, 0), 500, 576);
+			_panel.SetNineSliceToRepeat(500/11, 576/11);
 			_panel.AddChild(_button);
-			_panel.AddChild(_label);
-
-			_button.SetPositionCentralized();
+			_button.CentralizeParentPosition();
+			_button.CentralizePosition();
 
 			_player = new();
 

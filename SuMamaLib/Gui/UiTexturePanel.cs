@@ -8,9 +8,10 @@ namespace SuMamaLib.Gui
 	{
 		private NineSlice _sprite;
 
-		public ENineSliceTypes NineSliceType { get; private set; }= ENineSliceTypes.None;
-		public int _repetitionX, _repetitionY;
-		public int _stretchX, _stretchY;
+		public ENineSliceTypes NineSliceType { get; private set; } = ENineSliceTypes.None;
+
+		private int _repX = 0, _repY = 0;
+		private int _streX = 0, _streY = 0;
 
 		public Rectangle Bounds { get => new Rectangle((int)Position.X, (int)Position.Y, Width, Height); }
 
@@ -35,15 +36,15 @@ namespace SuMamaLib.Gui
 		public void SetNineSliceToRepeat(int repX, int repY)
 		{
 			NineSliceType = ENineSliceTypes.Repeat;
-			_repetitionX = repX;
-			_repetitionY = repY;
+			_repX = repX;
+			_repY = repY;
 		}
 
-		public void SetNineSliceToStretch(int sx, int sy)
+		public void SetNineSliceToStreatch(int strX, int strY)
 		{
 			NineSliceType = ENineSliceTypes.Stretch;
-			_stretchX = sx;
-			_stretchY = sy;
+			_streX = strX;
+			_streY = strY;
 		}
 
 		public override void Draw()
@@ -54,11 +55,11 @@ namespace SuMamaLib.Gui
 			}
 			else if(NineSliceType == ENineSliceTypes.Repeat)
 			{
-				_sprite.DrawWithRepeat(_repetitionX, _repetitionY, Position, Color, Transform.Rotation, Origin, Transform.Scale, SpriteEffect, Depth);
+				_sprite.DrawWithRepeat(_repX, _repY, Position, Color, Transform.Rotation, Origin, Transform.Scale, SpriteEffect, Depth);
 			}
 			else if(NineSliceType == ENineSliceTypes.Stretch)
 			{
-				_sprite.DrawWithStretch(_stretchX, _stretchY, Position, Color, Transform.Rotation, Origin, Transform.Scale, SpriteEffect, Depth);
+				_sprite.DrawWithStretch(_streX, _streY, Position, Color, Transform.Rotation, Origin, Transform.Scale, SpriteEffect, Depth);
 			}
 
 			base.Draw();

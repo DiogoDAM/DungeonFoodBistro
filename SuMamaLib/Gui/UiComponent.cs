@@ -97,8 +97,24 @@ namespace SuMamaLib.Gui
 			child.RemoveParent();
 		}
 
+		public void CentralizePosition()
+		{
+			Offset.X -= Width / 2;
+			Offset.Y -= Height / 2;
+		}
+
+		public void CentralizePositionX()
+		{
+			Offset.X -= Width / 2;
+		}
+
+		public void CentralizePositionY()
+		{
+			Offset.Y -= Height / 2;
+		}
+
 		// methods to set position relative to parent
-		public void SetPositionCentralized()
+		public void CentralizeParentPosition()
 		{
 			if(_parent != null) 
 			{
@@ -106,7 +122,8 @@ namespace SuMamaLib.Gui
 			}
 		}
 
-		public void SetPositionXCentralized()
+
+		public void CentralizeParentPositionX()
 		{
 			if(_parent != null) 
 			{
@@ -114,7 +131,7 @@ namespace SuMamaLib.Gui
 			}
 		}
 
-		public void SetPositionYCentralized()
+		public void CentralizeParentPositionY()
 		{
 			if(_parent != null) 
 			{
