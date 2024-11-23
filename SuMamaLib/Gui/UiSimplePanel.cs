@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using System;
 using SuMamaLib.Utils;
 
 namespace SuMamaLib.Gui
@@ -6,6 +7,8 @@ namespace SuMamaLib.Gui
 	public class UiSimplePanel : UiComponent
 	{
 		public Rectangle Bounds { get => new Rectangle((int)Position.X, (int)Position.Y, Width, Height); }
+
+		public ILayout Layout;
 
 		public UiSimplePanel() : base()
 		{
@@ -32,6 +35,43 @@ namespace SuMamaLib.Gui
 			Width = w;
 			Height = h;
 			Color = color;
+		}
+
+		public void SetLayout(ILayout layout)
+		{
+			if(layout == null) throw new NullReferenceException();
+
+			Layout = layout;
+			Layout.Parent = this;
+			Layout.AddListOfComponents(_children);
+		}
+
+		public new void AddChild(UiComponent component)
+		{
+			if(component == null) throw new NullReferenceException();
+
+			if(Layout != null)
+			{
+				Layout.AddComponent(component);
+			}
+			else
+			{
+				_children.Add(component);
+			}
+		}
+
+		public new void RemoveChild(UiComponent component)
+		{
+			if(component == null) return;
+
+			if(Layout != null)
+			{
+				Layout.RemoveComponent(component);
+			}
+			else
+			{
+				_children.Add(component);
+			}
 		}
 
 		public override void Draw()

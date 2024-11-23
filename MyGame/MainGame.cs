@@ -51,8 +51,9 @@ namespace MyGame
 			_button.AddChild(_label);
 
 			_panel = new UiTexturedPanel(new NineSlice(Globals.Content.Load<Texture2D>("Sprites/buttonTestNineSlice"), new Rectangle(0,0, 33, 33)), new Vector2(1024-350, 0), 350, 576);
-			FlowLayout layout = new FlowLayout(_panel.Position, 350, 576, 150, 80);
-			layout.Gap = new Vector2(20, 30);
+			FlowBagLayout layout = new FlowBagLayout(_panel.Position, 3, 3, 150, 80);
+			layout.Direction = EFlowDirection.Vertical;
+			layout.Gap = new Vector2(10, 25);
 			_panel.SetLayout(layout);
 			_panel.AddChild(_button);
 			_panel.AddChild(_button2);
