@@ -13,7 +13,7 @@ namespace MyGame
 	{
 		private Player _player;
 		private UiLabel _label;
-		private UiTexturedButton _button;
+		private UiTexturedButton _button, _button2, _button3, _button4, _button5, _button6;
 		private UiTexturedPanel _panel;
 
 		public MainGame() : base()
@@ -38,6 +38,11 @@ namespace MyGame
 			_label.Color = Color.White;
 
 			_button = new UiTexturedButton(new Sprite(Globals.Content.Load<Texture2D>("Sprites/buttonTest")), 150, 80, Color.White);
+			_button2 = new UiTexturedButton(new Sprite(Globals.Content.Load<Texture2D>("Sprites/buttonTest")), 150, 80, Color.White);
+			_button3 = new UiTexturedButton(new Sprite(Globals.Content.Load<Texture2D>("Sprites/buttonTest")), 150, 80, Color.White);
+			_button4 = new UiTexturedButton(new Sprite(Globals.Content.Load<Texture2D>("Sprites/buttonTest")), 150, 80, Color.White);
+			_button5 = new UiTexturedButton(new Sprite(Globals.Content.Load<Texture2D>("Sprites/buttonTest")), 150, 80, Color.White);
+			_button6 = new UiTexturedButton(new Sprite(Globals.Content.Load<Texture2D>("Sprites/buttonTest")), 150, 80, Color.White);
 			_button.CursorHover += OnCursorHover;
 			_button.CursorEndHover += OnCursorEndHover;
 			_button.CursorClick += OnCursorClick;
@@ -45,11 +50,18 @@ namespace MyGame
 			_button.CursorEndClick += OnCursorEndClick;
 			_button.AddChild(_label);
 
-			_panel = new UiTexturedPanel(new NineSlice(Globals.Content.Load<Texture2D>("Sprites/buttonTestNineSlice"), new Rectangle(0,0, 33, 33)), new Vector2(1024-500, 0), 500, 576);
-			_panel.SetNineSliceToRepeat(500/11, 576/11);
+			_panel = new UiTexturedPanel(new NineSlice(Globals.Content.Load<Texture2D>("Sprites/buttonTestNineSlice"), new Rectangle(0,0, 33, 33)), new Vector2(1024-350, 0), 350, 576);
+			FlowLayout layout = new FlowLayout(_panel.Position, 350, 576, 150, 80);
+			layout.Gap = new Vector2(20, 30);
+			_panel.SetLayout(layout);
 			_panel.AddChild(_button);
-			_button.CentralizeParentPosition();
-			_button.CentralizePosition();
+			_panel.AddChild(_button2);
+			_panel.AddChild(_button3);
+			_panel.AddChild(_button4);
+			_panel.AddChild(_button5);
+			_panel.AddChild(_button6);
+			_panel.SetNineSliceToRepeat(500/11, 576/11);
+
 
 			_player = new();
 
@@ -61,6 +73,7 @@ namespace MyGame
 			base.Update();
 
 			_panel.Update();
+
 
 			_world.Update();
 

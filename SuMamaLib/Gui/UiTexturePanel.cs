@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using SuMamaLib.Utils;
 using SuMamaLib.Utils.Sprites;
@@ -7,6 +8,7 @@ namespace SuMamaLib.Gui
 	public class UiTexturedPanel : UiComponent
 	{
 		private NineSlice _sprite;
+		public ILayout Layout { get; set; }
 
 		public ENineSliceTypes NineSliceType { get; private set; } = ENineSliceTypes.None;
 
@@ -26,6 +28,43 @@ namespace SuMamaLib.Gui
 			Transform.Position = pos;
 			Width = width;
 			Height = height;
+		}
+
+		public void SetLayout(ILayout layout)
+		{
+			if(layout == null) throw new NullReferenceException();
+
+			Layout = layout;
+			Layout.Parent = this;
+			Layout.AddListOfComponents(_children);
+		}
+
+		public new void AddChild(UiComponent component)
+		{
+			if(component == null) throw new NullReferenceException();
+
+			if(Layout != null)
+			{
+				Layout.AddComponent(component);
+			}
+			else
+			{
+				_children.Add(component);
+			}
+		}
+
+		public new void RemoveChild(UiComponent component)
+		{
+			if(component == null) return;
+
+			if(Layout != null)
+			{
+				Layout.RemoveComponent(component);
+			}
+			else
+			{
+				_children.Add(component);
+			}
 		}
 
 		public void SetNineSliceToNone()

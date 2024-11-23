@@ -8,13 +8,12 @@ namespace SuMamaLib.Gui
 		public List<UiComponent> Components { get; set; }
 		public UiComponent Parent { get; set; }
 
-		public Vector2 Position { get; set; }
+		public Vector2 Offset { get; set; }
 		public int Width { get; set; }
 		public int Height { get; set; }
 
+		public void AddListOfComponents(List<UiComponent> components);
 		public void AddComponent(UiComponent component);
 		public void RemoveComponent(UiComponent component);
-		public void AddParent(UiComponent parent);
-		public void RemoveParent(UiComponent parent);
 	}
 }
